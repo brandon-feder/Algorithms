@@ -4,87 +4,58 @@ template <class data_type>
 class LinkedList
 {
     private:
-        class Node
+        struct Node
         {
-            public:
-                Node *next; // Contains the next node in the list
-                data_type value; // The value contained by the current node
-
-                Node()
-                {
-                    next = NULL; // NULL because initialy, there are no next nodes
-                }
-
-                // Recursevly check until the end of the list is found, then add the new element
-                void append(data_type v)
-                {
-                    if(next == NULL)  // If is the last node
-                    {
-
-                        // Create the new node
-                        Node *newItem = (Node *)malloc(sizeof(struct Node));;
-                        newItem->value = v;
-
-                        // Assighn it to be the next node of the current node
-                        next = newItem;
-                    } else  // If not the last node
-                    {
-                        next->append(v); // Do the same thing again to the next node
-                    }
-                }
-
-                // Get the value of a node given its index
-                data_type get(int depth)
-                {
-                    if(depth == 0)  // If at the correct node
-                    {
-                        return value; // return its value
-                    } else  // Otherwise, recursevly do the same thing again to the next node
-                    {
-                        return next->get(depth-1);
-                    }
-                }
+            Node *next  = NULL; // Contains the next node in the list
+            data_type value; // The value contained by the current node
         };
 
-        Node *root; // First element of the Linked List
-        int size; // The number of element in the list
+        Node *root = NULL; // First element of the Linked List
+        int size = 0; // The number of element in the list
 
     public:
-        LinkedList()
-        {
-            size = 0;
-            root = NULL;
-        }
-
         // Returns the size of the new list
         int append(data_type v)
         {
-            if(root == NULL) // If no root exists yet (Size is 0)
-            {
+            // Create the new node
+            Node *newNode = new Node();
+            newNode->value = v;
 
-                // Create the new first node
-                Node *newItem = (Node *)malloc(sizeof(struct Node));
-                newItem->value = v;
-
-                // Assighn the node to the root of the list
-                root = newItem;
-            } else // Otherwise if there are more than 0 nodes
+            if(size == 0) // If the linked list is empty
             {
-                // Recursevly append to the last node
-                root->append(v);
+                root = newNode; // Assighn newNode to the root
+            } else  // If not empty
+            {
+                // Iterate through every element in the list
+                Node *currentNode = root;
+                for(int i = 0; i < size-1; i++)
+                {
+                    currentNode = currentNode->next;
+                }
+
+                // Assighn the last elements next variable to point to the next node
+                currentNode->next = newNode;
             }
 
             size += 1; // Increment the size
             return size;
         }
 
-        // Recursevly finds the value at the index given
         data_type get(int index)
         {
-            return root->get(index);
+            // Iterate over the list until index index
+            Node *currentNode = root;
+            for(int i = 0; i < index; i++)
+            {
+                currentNode = currentNode->next;
+            }
+
+            // return the value of that list node
+            return currentNode->value;
         }
 
-        int getSize() {
+        int getSize()
+        {
             return size;
         }
 };
