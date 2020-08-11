@@ -1,6 +1,8 @@
 #include <iostream>
 #include "linked-list.cpp"
 
+#define PRINT_NAME(x) std::cout << typeid(x).name() << '\n'
+
 void printList(LinkedList<int> list);
 
 int main( void )
@@ -48,7 +50,6 @@ int main( void )
 
     std::cout << "\nHere is the list after sorting using bubble sort: \n";
     printList(linkedList);
-
 }
 
 void printList(LinkedList<int> list) {

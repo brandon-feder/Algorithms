@@ -116,6 +116,9 @@ class LinkedList
 
         data_type get(int index)
         {
+            if(index >= size || index < 0)
+                std::cout << "Error: Invalid index in function get()\n";
+
             // Iterate over the list until index index
             Node *currentNode = root;
             for(int i = 0; i < index; i++)
@@ -129,6 +132,9 @@ class LinkedList
 
         void set(int index, data_type val)
         {
+            if(index >= size || index < 0)
+                std::cout << "Error: Invalid index in function set()\n";
+
             Node* currentNode = root;
 
             for(int i = 0; i < index; i++)
@@ -146,6 +152,9 @@ class LinkedList
 
         int remove(int index)
         {
+            if(index >= size || index < 0)
+                std::cout << "Error: Invalid index in function remove()\n";
+
             if(index == 0) // If removing the first element
             {
                 //Set the root to be the second element
@@ -181,6 +190,8 @@ class LinkedList
         // Sorts the list of primatives from smallest to greatest using selection sort
         void sort()
         {
+            if(size == 0)
+                return;
 
             // The node so start the sort on each iteration
             Node *start = root;
@@ -215,6 +226,9 @@ class LinkedList
         // do that. Its just a pointer demonstration instead of a practical solution
         void bubbleSort()
         {
+            if(size == 0)
+                return;
+                
             bool isDone = false; // Whether all the nodes are sorted
 
             while(!isDone)
