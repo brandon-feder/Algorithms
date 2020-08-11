@@ -5,29 +5,56 @@ void printList(LinkedList<int> list);
 
 int main( void )
 {
-    LinkedList<int> L_List;
+    // Initialize the list
+    LinkedList<int> linkedList;
 
-    L_List.append(2);
-    L_List.append(0);
-    L_List.append(6);
-    L_List.append(7);
-    L_List.append(3);
-    L_List.append(8);
-    L_List.append(4);
-    L_List.append(9);
-    L_List.append(1);
-    L_List.append(5);
+    // Add elements to the list
+    linkedList.append(2);
+    linkedList.append(0);
+    linkedList.append(6);
+    linkedList.append(7);
+    linkedList.append(3);
+    linkedList.append(8);
+    linkedList.append(4);
+    linkedList.append(9);
+    linkedList.append(1);
+    linkedList.append(5);
 
-    printList(L_List);
+    std::cout << "\nHere is the original list: \n";
+    printList(linkedList);
 
-    L_List.sort();
+    // Sort the list
+    linkedList.sort();
 
-    std::cout << "==============================\n";
-    printList(L_List);
+    std::cout << "\nHere is the list after undergoing selection sort: \n";
+    printList(linkedList);
+
+    // Removing first three elements
+    linkedList.remove(0);
+    linkedList.remove(0);
+    linkedList.remove(0);
+
+    std::cout << "\nHere is the list after removing the first three elements: \n";
+    printList(linkedList);
+
+    // Set each remaing element to a random x where 0 <= x <= 10
+    for(int i = 0; i < linkedList.getSize(); i++) {
+        linkedList.set(i, rand()%91);
+    }
+    std::cout << "\nHere is the list after using the set() function to set each element to a random integer between 0 and 100:\n";
+    printList(linkedList);
+
+    linkedList.bubbleSort();
+
+    std::cout << "\nHere is the list after sorting using bubble sort: \n";
+    printList(linkedList);
+
 }
 
 void printList(LinkedList<int> list) {
-    for(int i = 0; i < list.getSize(); i++) {
-        std::cout << list.get(i) << "\n";
+    std::cout << "[ " << list.get(0);
+    for(int i = 1; i < list.getSize(); i++) {
+        std::cout << ", " << list.get(i);
     }
+    std::cout << " ]\n";
 }

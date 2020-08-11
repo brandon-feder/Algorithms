@@ -13,6 +13,79 @@ class LinkedList
         Node *root = NULL; // First element of the Linked List
         int size = 0; // The number of element in the list
 
+        void swap(int a, int b)
+        {
+            // Make sure a is the lesser index
+            if(a > b)
+            {
+                int temp = b;
+                b = a;
+                a = temp;
+            }
+
+            // Pointers to the a and b nodes
+            Node *aCurrent = getNode(a);
+            Node *bCurrent = getNode(b);
+
+            // If a is the index of the first node and b is not the last node
+            if(a == 0 && b-a > 1)
+            {
+                Node *aNext = getNode(a+1);
+                Node *bPrev = getNode(b-1);
+                Node *bNext = bPrev->next->next;
+
+                bCurrent->next = aNext;
+                root = bCurrent;
+                aCurrent->next = bNext;
+                bPrev->next = aCurrent;
+
+
+            }
+            else if(a == 0 && b-a == 1) // If the nodes are consecutive and the first node is the first of the list
+            {
+                Node *bNext = getNode(b+1);
+
+                bCurrent->next = aCurrent;
+                root = bCurrent;
+                aCurrent->next = bNext;
+
+            } else if(a != 0 && b-a == 1)
+            {
+                Node *aPrev = getNode(a-1);
+                Node *bNext = getNode(b+1);
+
+                aPrev->next = bCurrent;
+                aCurrent->next = bNext;
+                bCurrent->next = aCurrent;
+
+
+            } else // Otherwise
+            {
+                Node *aPrev = getNode(a-1);
+                Node *aNext = aPrev->next->next;
+                Node *bPrev = getNode(b-1);
+                Node *bNext = bPrev->next->next;
+
+                aPrev->next = bCurrent;
+                bPrev->next = aCurrent;
+                aCurrent->next = bNext;
+                bCurrent->next = aNext;
+            }
+        }
+
+        // Get a pointer to the node at index index
+        Node *getNode(int index)
+        {
+            Node *currentNode = root;
+
+            for(int i = 0; i < index; i++)
+            {
+                currentNode = currentNode->next;
+            }
+
+            return currentNode;
+        }
+
     public:
         // Returns the size of the new list
         int append(data_type v)
@@ -105,16 +178,6 @@ class LinkedList
             return size;
         }
 
-        void swap(int a, int b)
-        {
-            int a_val = this->get(a);
-            int temp = a_val;
-            int b_val = this->get(b);
-
-            this->set(a, b_val);
-            this->set(b, temp);
-        }
-
         // Sorts the list of primatives from smallest to greatest using selection sort
         void sort()
         {
@@ -142,6 +205,39 @@ class LinkedList
                 minNode->value = temp;
 
                 start = start->next; // Increment the element to start on
+            }
+        }
+
+
+        // Implementation of bubble sort
+        // Note* I could make this more efficient by making the swap function return the next node to swap instead of finding a and b from scratch everyime
+        // But that takes away from the elegance of the solution and is pointless as bubble sort is not efficient in the first place which is why I did not
+        // do that. Its just a pointer demonstration instead of a practical solution
+        void bubbleSort()
+        {
+            bool isDone = false; // Whether all the nodes are sorted
+
+            while(!isDone)
+            {
+                isDone = true;
+
+                // For every pair of nodes
+                for(int i = 0; i < size-1; i++)
+                {
+                    data_type a = getNode(i)->value;
+                    data_type b = getNode(i+1)->value;
+
+                    // If the first of the pair is < than the second, swap
+                    if(a > b)
+                    {
+                        std::cout << i << " " << a << " " << b << "\n";
+                        isDone = false;
+                        swap(i, i+1);
+                        std::cout << "Swapepd\n";
+
+
+                    }
+                }
             }
         }
 };
