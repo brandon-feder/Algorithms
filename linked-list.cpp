@@ -88,7 +88,7 @@ class LinkedList
 
     public:
         // Returns the size of the new list
-        int append(data_type v)
+        void append(data_type v)
         {
             // Create the new node
             Node *newNode = new Node();
@@ -111,13 +111,15 @@ class LinkedList
             }
 
             size += 1; // Increment the size
-            return size;
         }
 
         data_type get(int index)
         {
             if(index >= size || index < 0)
+            {
                 std::cout << "Error: Invalid index in function get()\n";
+                exit(0);
+            }
 
             // Iterate over the list until index index
             Node *currentNode = root;
@@ -133,7 +135,10 @@ class LinkedList
         void set(int index, data_type val)
         {
             if(index >= size || index < 0)
+            {
                 std::cout << "Error: Invalid index in function set()\n";
+                exit(0);
+            }
 
             Node* currentNode = root;
 
@@ -150,14 +155,20 @@ class LinkedList
             return size;
         }
 
-        int remove(int index)
+        data_type remove(int index)
         {
             if(index >= size || index < 0)
+            {
                 std::cout << "Error: Invalid index in function remove()\n";
+                exit(0);
+            }
 
+            data_type returnValue;
             if(index == 0) // If removing the first element
             {
                 //Set the root to be the second element
+
+                returnValue =  root->value;
                 root = root->next;
             } else if(index == size-1) /// If removing the last element
             {
@@ -168,6 +179,7 @@ class LinkedList
                     currentNode = currentNode->next;
                 }
 
+                returnValue = currentNode->next->value;
                 currentNode->next = NULL;
 
             } else // If removing any element other than the first or last
@@ -180,11 +192,12 @@ class LinkedList
                     currentNode = currentNode->next;
                 }
 
+                returnValue =  currentNode->next->value;
                 currentNode->next = currentNode->next->next;
             }
 
             --size;
-            return size;
+            return returnValue;
         }
 
         // Sorts the list of primatives from smallest to greatest using selection sort
@@ -228,7 +241,7 @@ class LinkedList
         {
             if(size == 0)
                 return;
-                
+
             bool isDone = false; // Whether all the nodes are sorted
 
             while(!isDone)
@@ -244,12 +257,8 @@ class LinkedList
                     // If the first of the pair is < than the second, swap
                     if(a > b)
                     {
-                        std::cout << i << " " << a << " " << b << "\n";
                         isDone = false;
                         swap(i, i+1);
-                        std::cout << "Swapepd\n";
-
-
                     }
                 }
             }

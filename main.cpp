@@ -1,12 +1,26 @@
 #include <iostream>
 #include "linked-list.cpp"
-
-#define PRINT_NAME(x) std::cout << typeid(x).name() << '\n'
+#include "stack.cpp"
+#include "queue.cpp"
 
 void printList(LinkedList<int> list);
 
+void linkedListTest();
+void stackTest();
+void queueTest();
+
 int main( void )
 {
+    linkedListTest();
+    std::cout << "\n=============================\n\n";
+    stackTest();
+    std::cout << "\n=============================\n\n";
+    queueTest();
+    std::cout << "\n=============================\n\n";
+}
+
+
+void linkedListTest() {
     // Initialize the list
     LinkedList<int> linkedList;
 
@@ -31,12 +45,12 @@ int main( void )
     std::cout << "\nHere is the list after undergoing selection sort: \n";
     printList(linkedList);
 
-    // Removing first three elements
-    linkedList.remove(0);
-    linkedList.remove(0);
-    linkedList.remove(0);
+    // Removing some elements
 
-    std::cout << "\nHere is the list after removing the first three elements: \n";
+    std::cout << "\nHere is the list after removing some elements: \n";
+    std::cout << "Removing: " << linkedList.remove(0) << "\n";
+    std::cout << "Removing: " << linkedList.remove(2) << "\n";
+    std::cout << "Removing: " << linkedList.remove(7) << "\n";
     printList(linkedList);
 
     // Set each remaing element to a random x where 0 <= x <= 10
@@ -50,6 +64,41 @@ int main( void )
 
     std::cout << "\nHere is the list after sorting using bubble sort: \n";
     printList(linkedList);
+}
+
+void stackTest() {
+    Stack<char> stack;
+
+    std::cout << "Pushing to stack:\n";
+    stack.push('!');
+    stack.push('n');
+    stack.push('o');
+    stack.push('d');
+    stack.push('n');
+    stack.push('a');
+    stack.push('r');
+    stack.push('b');
+
+    std::cout << "Popping from stack:\n";
+    for(int i = 0; i < 8; i++) {
+        std::cout << "Popped: " << stack.pop() << "\n";
+    }
+}
+
+void queueTest() {
+    Queue<float> queue;
+
+    std::cout << "Pushing to queue:\n";
+    queue.push(3.1);
+    queue.push(4);
+    queue.push(1);
+    queue.push(5);
+    queue.push(9);
+
+    std::cout << "Popping from queue:\n";
+    for(int i = 0; i < 5; i++) {
+        std::cout << "Popped: " << queue.pop() << "\n";
+    }
 }
 
 void printList(LinkedList<int> list) {
