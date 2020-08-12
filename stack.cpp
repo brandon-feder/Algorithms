@@ -1,4 +1,3 @@
-// Single direction, linear, linked list class
 template <class data_type>
 class Stack
 {
@@ -12,7 +11,7 @@ class Stack
         void push(data_type v)
         {
             ++size;
-            stack.append(v);
+            stack.append_front(v);
         }
 
         data_type pop()
@@ -22,7 +21,7 @@ class Stack
                 exit(0);
             }
             --size;
-            return stack.remove(stack.getSize()-1);
+            return stack.remove(0);
         }
 
         int getSize()

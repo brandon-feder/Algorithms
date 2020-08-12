@@ -24,16 +24,16 @@ void linkedListTest() {
     // Initialize the list
     LinkedList<int> linkedList;
 
-    // Add elements to the list
-    linkedList.append(2);
+    // Add elements to the list at the start and front
+    linkedList.append_front(2);
     linkedList.append(0);
-    linkedList.append(6);
+    linkedList.append_front(6);
     linkedList.append(7);
-    linkedList.append(3);
+    linkedList.append_front(3);
     linkedList.append(8);
-    linkedList.append(4);
+    linkedList.append_front(4);
     linkedList.append(9);
-    linkedList.append(1);
+    linkedList.append_front(1);
     linkedList.append(5);
 
     std::cout << "\nHere is the original list: \n";
@@ -46,7 +46,6 @@ void linkedListTest() {
     printList(linkedList);
 
     // Removing some elements
-
     std::cout << "\nHere is the list after removing some elements: \n";
     std::cout << "Removing: " << linkedList.remove(0) << "\n";
     std::cout << "Removing: " << linkedList.remove(2) << "\n";

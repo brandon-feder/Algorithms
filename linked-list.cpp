@@ -110,7 +110,25 @@ class LinkedList
                 currentNode->next = newNode;
             }
 
-            size += 1; // Increment the size
+            ++size; // Increment the size
+        }
+
+        // Appends the new element to the front of the list
+        void append_front(data_type v)
+        {
+            // Create a new node
+            Node *newNode = new Node();
+            newNode->value = v;
+
+            // Its next value will be the current first node
+            newNode->next = root;
+
+            // It is now the first node
+            root = newNode;
+
+            // Increment size
+            ++size;
+
         }
 
         data_type get(int index)
