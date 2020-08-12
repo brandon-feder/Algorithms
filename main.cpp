@@ -1,26 +1,33 @@
 #include <iostream>
 #include "linked-list.cpp"
+#include "unicode.cpp"
+#include "dbl-linked-list.cpp"
 #include "stack.cpp"
 #include "queue.cpp"
 
 void printList(LinkedList<int> list);
 
 void linkedListTest();
+void unicodeTest();
+void dblLinkedListTest();
 void stackTest();
 void queueTest();
 
 int main( void )
 {
-    linkedListTest();
-    std::cout << "\n=============================\n\n";
-    stackTest();
-    std::cout << "\n=============================\n\n";
-    queueTest();
-    std::cout << "\n=============================\n\n";
+    unicodeTest();
+
+    // linkedListTest();
+    // std::cout << "\n=============================\n\n";
+    // stackTest();
+    // std::cout << "\n=============================\n\n";
+    // queueTest();
+    // std::cout << "\n=============================\n\n";
 }
 
 
-void linkedListTest() {
+void linkedListTest()
+{
     // Initialize the list
     LinkedList<int> linkedList;
 
@@ -65,7 +72,33 @@ void linkedListTest() {
     printList(linkedList);
 }
 
-void stackTest() {
+void dblLinkedListTest()
+{
+    // LinkedList<int> linkedList;
+}
+
+void unicodeTest()
+{
+    UnicodeChar charA = UnicodeChar("\U0001F923");
+    UnicodeChar charB = UnicodeChar("\U0001F600");
+
+    std::cout << "You can compare chars like any other primative using <, >, ==, etc:\n";
+    std::cout << "Is A != B ?      " << (charA != charB) << "\n";
+    std::cout << "Is A > B ?      " << (charA > charB) << "\n";
+    std::cout << "Is A < B ?      " << (charA < charB) << "\n";
+    std::cout << "Is A == B ?      " << (charA == charB) << "\n";
+    std::cout << "Is A >= B ?      " << (charA >= charB) << "\n";
+    std::cout << "Is A <= B ?      " << (charA <= charB) << "\n";
+    std::cout << "Is A != A ?      " << (charA != charA) << "\n";
+    std::cout << "Is B == B ?      " << (charB == charB) << "\n";
+
+    std::cout << "\nYou can also print them out: \n";
+    std::cout << "Char A: " << charA << "\n";
+    std::cout << "Char B: " << charB << "\n";
+}
+
+void stackTest()
+{
     Stack<char> stack;
 
     std::cout << "Pushing to stack:\n";
@@ -84,7 +117,8 @@ void stackTest() {
     }
 }
 
-void queueTest() {
+void queueTest()
+{
     Queue<float> queue;
 
     std::cout << "Pushing to queue:\n";
@@ -100,7 +134,8 @@ void queueTest() {
     }
 }
 
-void printList(LinkedList<int> list) {
+void printList(LinkedList<int> list)
+{
     std::cout << "[ " << list.get(0);
     for(int i = 1; i < list.getSize(); i++) {
         std::cout << ", " << list.get(i);
