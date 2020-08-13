@@ -6,6 +6,7 @@
 #include "queue.cpp"
 
 void printList(LinkedList<int> list);
+void printDList(DblLinkedList<UnicodeChar> list);
 
 void linkedListTest();
 void unicodeTest();
@@ -15,14 +16,17 @@ void queueTest();
 
 int main( void )
 {
-    unicodeTest();
 
-    // linkedListTest();
-    // std::cout << "\n=============================\n\n";
-    // stackTest();
-    // std::cout << "\n=============================\n\n";
-    // queueTest();
-    // std::cout << "\n=============================\n\n";
+    linkedListTest();
+    std::cout << "\n=============================\n\n";
+    unicodeTest();
+    std::cout << "\n=============================\n\n";
+    dblLinkedListTest();
+    std::cout << "\n=============================\n\n";
+    stackTest();
+    std::cout << "\n=============================\n\n";
+    queueTest();
+    std::cout << "\n=============================\n\n";
 }
 
 
@@ -74,7 +78,61 @@ void linkedListTest()
 
 void dblLinkedListTest()
 {
-    // LinkedList<int> linkedList;
+    DblLinkedList<UnicodeChar> dLinkedList;
+
+    UnicodeChar smile1 = UnicodeChar("\U0001F600");
+    UnicodeChar sick = UnicodeChar("\U0001F922");
+    UnicodeChar hot = UnicodeChar("\U0001F975");
+    UnicodeChar blush = UnicodeChar("\U0001F60A");
+    UnicodeChar halo = UnicodeChar("\U0001F607");
+    UnicodeChar money = UnicodeChar("\U0001F911");
+    UnicodeChar zip_lip = UnicodeChar("\U0001F910");
+    UnicodeChar cold = UnicodeChar("\U0001F976");
+    UnicodeChar evil = UnicodeChar("\U0001F60B");
+    UnicodeChar skull = UnicodeChar("\U0001F480");
+    UnicodeChar robot = UnicodeChar("\U0001F916");
+    UnicodeChar cat = UnicodeChar("\U0001F63A");
+    UnicodeChar alien = UnicodeChar("\U0001F470");
+
+    std::cout << "Using append to create original list of emojis: \n";
+    dLinkedList.append(smile1);
+    dLinkedList.append(sick);
+    dLinkedList.append(hot);
+    dLinkedList.append(blush);
+    dLinkedList.append(halo);
+    dLinkedList.append(money);
+    dLinkedList.append(zip_lip);
+    dLinkedList.append(cold);
+
+    printDList(dLinkedList);
+
+    std::cout << "\nAding some emojis to the front using append_front(): \n";
+    dLinkedList.append_front(evil);
+    dLinkedList.append_front(skull);
+    dLinkedList.append_front(robot);
+
+    printDList(dLinkedList);
+
+    std::cout << "\nChanging the emojis with the set function\n";
+    dLinkedList.set(2, alien);
+    dLinkedList.set(4, cat);
+
+    printDList(dLinkedList);
+
+    std::cout << "\nRemoving some emojis with remove()\n";
+    dLinkedList.remove(2);
+    dLinkedList.remove(0);
+    dLinkedList.remove(8);
+
+    printDList(dLinkedList);
+
+    std::cout << "\nSorting the remaining emojis\n";
+
+    dLinkedList.bubbleSort();
+
+    printDList(dLinkedList);
+
+
 }
 
 void unicodeTest()
@@ -82,7 +140,7 @@ void unicodeTest()
     UnicodeChar charA = UnicodeChar("\U0001F923");
     UnicodeChar charB = UnicodeChar("\U0001F600");
 
-    std::cout << "You can compare chars like any other primative using <, >, ==, etc:\n";
+    std::cout << "You can compare unicode chars like any other primative using <, >, ==, etc:\n";
     std::cout << "Is A != B ?      " << (charA != charB) << "\n";
     std::cout << "Is A > B ?      " << (charA > charB) << "\n";
     std::cout << "Is A < B ?      " << (charA < charB) << "\n";
@@ -135,6 +193,15 @@ void queueTest()
 }
 
 void printList(LinkedList<int> list)
+{
+    std::cout << "[ " << list.get(0);
+    for(int i = 1; i < list.getSize(); i++) {
+        std::cout << ", " << list.get(i);
+    }
+    std::cout << " ]\n";
+}
+
+void printDList(DblLinkedList<UnicodeChar> list)
 {
     std::cout << "[ " << list.get(0);
     for(int i = 1; i < list.getSize(); i++) {

@@ -4,9 +4,18 @@ class UnicodeChar
 
     public:
         std::string value;
+
+        UnicodeChar() {
+
+        }
+
         UnicodeChar( std::string v)
         {
             value = v;
+        }
+
+        UnicodeChar( const UnicodeChar &obj) {
+            value = obj.value;
         }
 };
 
