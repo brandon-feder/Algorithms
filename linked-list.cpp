@@ -221,6 +221,11 @@ class LinkedList
         // Sorts the list of primatives from smallest to greatest using selection sort
         void sort()
         {
+            if(! (typeid(data_type).name() == "11UnicodeChar" || typeid(data_type).name() == "c" || typeid(data_type).name() == "i" || typeid(data_type).name() == "f" || typeid(data_type).name() == "d") )
+            {
+                std::cout << "Error: Invalid type to sort\n";
+                exit();
+            }
             if(size == 0)
                 return;
 
@@ -257,6 +262,12 @@ class LinkedList
         // do that. Its just a pointer demonstration instead of a practical solution
         void bubbleSort()
         {
+            if(! (typeid(data_type).name() == "11UnicodeChar" || typeid(data_type).name() == "c" || typeid(data_type).name() == "i" || typeid(data_type).name() == "f" || typeid(data_type).name() == "d") )
+            {
+                std::cout << "Error: Invalid type to sort\n";
+                exit();
+            }
+
             if(size == 0)
                 return;
 
