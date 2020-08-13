@@ -221,10 +221,12 @@ class LinkedList
         // Sorts the list of primatives from smallest to greatest using selection sort
         void sort()
         {
-            if(! (typeid(data_type).name() == "11UnicodeChar" || typeid(data_type).name() == "c" || typeid(data_type).name() == "i" || typeid(data_type).name() == "f" || typeid(data_type).name() == "d") )
+            // Note* There are many more codes that can be added, but these are the main ones
+            std::string dName =  std::string(typeid(data_type).name());
+            if(! (dName == "11UnicodeChar" || dName == "c" || dName == "i" || dName == "f" || dName == "d") )
             {
                 std::cout << "Error: Invalid type to sort\n";
-                exit();
+                exit(0);
             }
             if(size == 0)
                 return;
@@ -262,10 +264,12 @@ class LinkedList
         // do that. Its just a pointer demonstration instead of a practical solution
         void bubbleSort()
         {
-            if(! (typeid(data_type).name() == "11UnicodeChar" || typeid(data_type).name() == "c" || typeid(data_type).name() == "i" || typeid(data_type).name() == "f" || typeid(data_type).name() == "d") )
+            // Note* There are many more codes that can be added, but these are the main ones
+            std::string dName =  std::string(typeid(data_type).name());
+            if(! (dName == "11UnicodeChar" || dName == "c" || dName == "i" || dName == "f" || dName == "d") )
             {
                 std::cout << "Error: Invalid type to sort\n";
-                exit();
+                exit(0);
             }
 
             if(size == 0)
