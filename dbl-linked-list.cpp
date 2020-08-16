@@ -13,72 +13,7 @@ class DblLinkedList
         Node *root = NULL; // First element of the Linked List
         int size = 0; // The number of element in the list
 
-        void swap(int a, int b)
-        {
-            // Make sure a is the lesser index
-            if(a > b)
-            {
-                int temp = b;
-                b = a;
-                a = temp;
-            }
-
-            // Pointers to the a and b nodes
-            Node *aCurrent = getNode(a);
-            Node *bCurrent = getNode(b);
-
-            // If a is the index of the first node and b is not the last node
-            if(false)
-            {
-            } else // Otherwise
-            {
-
-                Node *aPrev = getNode(a-1);
-                Node *aNext = getNode(a+1);
-                Node *bPrev = getNode(b-1);
-                Node *bNext = getNode(b+1);
-
-                if(b-a == 1)
-                {
-                    aCurrent->next = bNext;
-                    bCurrent->next = aCurrent;
-                    aCurrent->prev = bCurrent;
-                    bCurrent->prev = aPrev;
-
-                    if(aPrev != NULL)
-                        aPrev->next = bCurrent;
-
-                    if(bNext != NULL)
-                        bNext->prev = aCurrent;
-
-                    if(a == 0)
-                        root = bCurrent;
-                } else
-                {
-                //
-                    aCurrent->next = bNext;
-                    bCurrent->next = aNext;
-                    aCurrent->prev = bPrev;
-                    bCurrent->prev = aPrev;
-
-                    if(aPrev != NULL)
-                        aPrev->next = bCurrent;
-
-                    bPrev->next = aCurrent;
-                    aNext->prev = bCurrent;
-
-                    if(bNext != NULL)
-                        bNext->prev = aCurrent;
-
-                    if(a == 0)
-                        root = bCurrent;
-
-                }
-            }
-
-        }
-
-        Node *getNode(int index)
+        Node *getNodePointer(int index)
         {
             if(index < 0 || index >= size) {
                 return NULL;
@@ -94,7 +29,49 @@ class DblLinkedList
             return currentNode;
         }
 
+        void swap(int a, int b)
+        {
+            // Make sure a is the lesser index
+            if(a > b)
+            {
+                int temp = b;
+                b = a;
+                a = temp;
+            }
+
+            // Pointers to the a and b nodes
+            Node *aCurrent = getNodePointer(a);
+            Node *bCurrent = getNodePointer(b);
+
+            // A & B next and prev nodes
+            Node *aPrev = getNodePointer(a-1);
+            Node *aNext = getNodePointer(a+1);
+            Node *bPrev = getNodePointer(b-1);
+            Node *bNext = getNodePointer(b+1);
+
+            aCurrent->next = bNext;
+            bCurrent->next = (b-a == 1) ? aCurrent : aNext;
+            aCurrent->prev = (b-a == 1) ? bCurrent : bPrev;
+            bCurrent->prev = aPrev;
+
+
+            if(aPrev != NULL)
+                aPrev->next = bCurrent;
+
+            if(bNext != NULL)
+                bNext->prev = aCurrent;
+
+            if(a == 0)
+                root = bCurrent;
+        }
+
     public:
+        // DblLinkedList() {}
+        // ~DblLinkedList() {
+        //     delete root;
+        //     delete data_type;
+        //     delete size;
+        // }
         // Returns the size of the new list
         void append(data_type v)
         {
@@ -105,11 +82,7 @@ class DblLinkedList
             if(size == 0) {
                 root = newNode;
             } else {
-                Node *currentNode = root;
-                for(int i = 0; i < size-1; i++)
-                {
-                    currentNode = currentNode->next;
-                }
+                Node *currentNode = getNodePointer(size-1);
 
                 // Assighn the last elements next variable to point to the next node and to the last node
                 newNode->prev = currentNode;
@@ -141,11 +114,7 @@ class DblLinkedList
             }
 
             // Iterate over the list until index index
-            Node *currentNode = root;
-            for(int i = 0; i < index; i++)
-            {
-                currentNode = currentNode->next;
-            }
+            Node *currentNode = getNodePointer(index);
 
             // return the value of that list node
             return currentNode->value;
@@ -159,12 +128,7 @@ class DblLinkedList
                 exit(0);
             }
 
-            Node* currentNode = root;
-
-            for(int i = 0; i < index; i++)
-            {
-                currentNode = currentNode->next;
-            }
+            Node* currentNode = getNodePointer(index);
 
             currentNode->value = val;
         }
@@ -186,36 +150,20 @@ class DblLinkedList
             if(index == 0) // If removing the first element
             {
                 //Set the root to be the second element
-
                 returnValue =  root->value;
                 root = root->next;
                 root->prev = NULL;
 
-            } else if(index == size-1) /// If removing the last element
+            } else /// If removing the last element
             {
                 // Find the second to last element and set set its next to NULL
-                Node *currentNode = root;
-                for(int i = 0; i < size-2; i++)
-                {
-                    currentNode = currentNode->next;
-                }
+                Node *currentNode = (index == size-1) ? getNodePointer(size-2) : getNodePointer(index-1);
 
                 returnValue = currentNode->next->value;
-                currentNode->next = NULL;
+                currentNode->next = (index == size-1) ? NULL : currentNode->next->next;
 
-            } else // If removing any element other than the first or last
-            {
-                // Set the index-1 element to point to the index+1 element and vis versa
-                Node *currentNode = root;
-
-                for(int i = 0; i < index-1; i++)
-                {
-                    currentNode = currentNode->next;
-                }
-
-                returnValue = currentNode->next->value;
-                currentNode->next->next->prev = currentNode;
-                currentNode->next = currentNode->next->next;
+                if(index != size-1)
+                    currentNode->next->next->prev = currentNode;
             }
 
             --size;
@@ -224,9 +172,6 @@ class DblLinkedList
 
 
         // Implementation of bubble sort
-        // Note* I could make this more efficient by making the swap function return the next node to swap instead of finding a and b from scratch everyime
-        // But that takes away from the elegance of the solution and is pointless as bubble sort is not efficient in the first place which is why I did not
-        // do that. Its just a pointer demonstration instead of a practical solution
         void bubbleSort()
         {
             // Note* There are many more codes that can be added, but these are the main ones
@@ -250,8 +195,8 @@ class DblLinkedList
                 // For every pair of nodes
                 for(int i = 0; i < size-1; i++)
                 {
-                    data_type a = getNode(i)->value;
-                    data_type b = getNode(i+1)->value;
+                    data_type a = getNodePointer(i)->value;
+                    data_type b = getNodePointer(i+1)->value;
 
                     // If the first of the pair is < than the second, swap
                     if(a > b)
@@ -261,5 +206,9 @@ class DblLinkedList
                     }
                 }
             }
+        }
+
+        void mergeSort() {
+            
         }
 };

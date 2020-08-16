@@ -5,9 +5,10 @@
 #include "stack.cpp"
 #include "queue.cpp"
 
-void printList(LinkedList<int> list);
-void printDList(DblLinkedList<UnicodeChar> list);
+void printList(LinkedList<int> *list);
+void printDList(DblLinkedList<UnicodeChar> *list);
 
+void tests();
 void linkedListTest();
 void unicodeTest();
 void dblLinkedListTest();
@@ -16,7 +17,11 @@ void queueTest();
 
 int main( void )
 {
+    srand(time(0));
+    tests();
+}
 
+void tests() {
     linkedListTest();
     std::cout << "\n=============================\n\n";
     unicodeTest();
@@ -28,7 +33,6 @@ int main( void )
     queueTest();
     std::cout << "\n=============================\n\n";
 }
-
 
 void linkedListTest()
 {
@@ -48,32 +52,26 @@ void linkedListTest()
     linkedList.append(5);
 
     std::cout << "\nHere is the original list: \n";
-    printList(linkedList);
-
-    // Sort the list
-    linkedList.sort();
-
-    std::cout << "\nHere is the list after undergoing selection sort: \n";
-    printList(linkedList);
+    printList(&linkedList);
 
     // Removing some elements
     std::cout << "\nHere is the list after removing some elements: \n";
     std::cout << "Removing: " << linkedList.remove(0) << "\n";
     std::cout << "Removing: " << linkedList.remove(2) << "\n";
     std::cout << "Removing: " << linkedList.remove(7) << "\n";
-    printList(linkedList);
+    printList(&linkedList);
 
     // Set each remaing element to a random x where 0 <= x <= 10
     for(int i = 0; i < linkedList.getSize(); i++) {
         linkedList.set(i, rand()%91);
     }
     std::cout << "\nHere is the list after using the set() function to set each element to a random integer between 0 and 100:\n";
-    printList(linkedList);
+    printList(&linkedList);
 
     linkedList.bubbleSort();
 
     std::cout << "\nHere is the list after sorting using bubble sort: \n";
-    printList(linkedList);
+    printList(&linkedList);
 }
 
 void dblLinkedListTest()
@@ -104,33 +102,33 @@ void dblLinkedListTest()
     dLinkedList.append(zip_lip);
     dLinkedList.append(cold);
 
-    printDList(dLinkedList);
+    printDList(&dLinkedList);
 
     std::cout << "\nAding some emojis to the front using append_front(): \n";
     dLinkedList.append_front(evil);
     dLinkedList.append_front(skull);
     dLinkedList.append_front(robot);
 
-    printDList(dLinkedList);
+    printDList(&dLinkedList);
 
     std::cout << "\nChanging the emojis with the set function\n";
     dLinkedList.set(2, alien);
     dLinkedList.set(4, cat);
 
-    printDList(dLinkedList);
+    printDList(&dLinkedList);
 
     std::cout << "\nRemoving some emojis with remove()\n";
     dLinkedList.remove(2);
     dLinkedList.remove(0);
     dLinkedList.remove(8);
 
-    printDList(dLinkedList);
+    printDList(&dLinkedList);
 
     std::cout << "\nSorting the remaining emojis\n";
 
     dLinkedList.bubbleSort();
 
-    printDList(dLinkedList);
+    printDList(&dLinkedList);
 
 
 }
@@ -192,20 +190,20 @@ void queueTest()
     }
 }
 
-void printList(LinkedList<int> list)
+void printList(LinkedList<int> *list)
 {
-    std::cout << "[ " << list.get(0);
-    for(int i = 1; i < list.getSize(); i++) {
-        std::cout << ", " << list.get(i);
+    std::cout << "[ " << list->get(0);
+    for(int i = 1; i < list->getSize(); i++) {
+        std::cout << ", " << list->get(i);
     }
     std::cout << " ]\n";
 }
 
-void printDList(DblLinkedList<UnicodeChar> list)
+void printDList(DblLinkedList<UnicodeChar> *list)
 {
-    std::cout << "[ " << list.get(0);
-    for(int i = 1; i < list.getSize(); i++) {
-        std::cout << ", " << list.get(i);
+    std::cout << "[ " << list->get(0);
+    for(int i = 1; i < list->getSize(); i++) {
+        std::cout << ", " << list->get(i);
     }
     std::cout << " ]\n";
 }

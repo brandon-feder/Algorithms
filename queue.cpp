@@ -1,4 +1,3 @@
-// Note* This could be more efficient by making it use a cicular linked list with a pointer to the front and back
 template <class data_type>
 class Queue
 {
